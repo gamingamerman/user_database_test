@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Oct 31, 2022 at 04:29 PM
+-- Generation Time: Oct 31, 2022 at 04:43 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.0.19
 
@@ -35,6 +35,14 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `usuario`
+--
+
+INSERT INTO `usuario` (`Id`, `Nombre`, `Fecha`, `Activo`) VALUES
+(1, 'John', '2013-10-10', 1),
+(3, 'Maria', '2014-11-08', 0);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -52,7 +60,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `Id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
