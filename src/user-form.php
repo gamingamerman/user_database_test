@@ -1,5 +1,12 @@
 <?php
+    $link = new mysqli('db', 'root', 'test', 'Usuario'); 
 
+    $error = $link -> connect_errno;
+
+    if ($error != null) {
+        echo '<p>El error dice: ' . $link->connect_error . '</p>';
+        die(); //Stop de exec
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +18,7 @@
 </head>
 <body>
     <h1>Usuarios:</h1>
-    <table>
-
-    </table>
+    
 </body>
 </html>
 <?php
