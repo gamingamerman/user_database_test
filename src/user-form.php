@@ -52,6 +52,7 @@
                 $result = $link->query($sql);
                 $row = $result->fetch_array();
                 while ($row != null) {
+                    $formated_date = date_create_from_format('Y-m-d', $row['Fecha']);
             ?>
 
             <tr>
@@ -62,7 +63,7 @@
                     <?=$row["Nombre"]?>
                 </td>
                 <td>
-                    <?=$row["Fecha"]?>
+                    <?=strftime('%A, %d de %B de %Y', date_timestamp_get($formated_date));?>
                 </td>
                 <td>
                     <? if ($row["Activo"] == 1) {
@@ -85,7 +86,7 @@
                 Nombre: <input type="text" name="nombre_user">
                 <br>
                 <br>
-                Fecha de Nacimiento: <input type="date" name="fecha_user">
+                Fecha de Nacimiento: <input type="date" name="fecha_user" value="<?=date('Y-m-d')?>">
                 <br>
                 <br>
                 Activo? <input type="checkbox" name="activo_user">
@@ -98,16 +99,25 @@
 
     <?php
         if (isset($_POST['insert_user'])) {
-            $nombre = $_REQUEST["nombre_user"];
-            $fecha = $_REQUEST["fecha_user"];
-            $activo = 0;
-
-            $sql = "INSERT INTO usuario(Nombre, Fecha, Activo) VALUES ('$nombre', '$fecha', '$activo')";
-            if ($link -> query($sql) == TRUE) {
-                echo "Se ha creado un nuevo usuario";
+            $nameError = "";
+            $dateError = "";
+            if(empty($_POST["nombre_user"])) $nameError =  "El nombre está vacio";
+            if(empty($_POST["fecha_user"])) $dateError = "La fecha está vacía";
+            if (strlen($nameError) > 0 ||  strlen($dateError) > 0) {
+                echo "<h3> No se puede crear usuario </h3>";
             } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($link);
+                $nombre = $_REQUEST["nombre_user"];
+                $fecha = $_REQUEST["fecha_user"];
+                $activo = 0;
+
+                $sql = "INSERT INTO usuario(Nombre, Fecha, Activo) VALUES ('$nombre', '$fecha', '$activo')";
+                if ($link -> query($sql) == TRUE) {
+                    echo "Se ha creado un nuevo usuario";
+                } else {
+                    echo "Error: " . $sql . "<br>" . mysqli_error($link);
+                }
             }
+            
         }
     ?>
 </body>
